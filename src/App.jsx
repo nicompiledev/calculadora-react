@@ -6,36 +6,43 @@ import Pantalla from './components/Pantalla';
 import { useState } from 'react';
 import { evaluate } from 'mathjs';
 
-
+// This is the main component of the calculator, it uses the useState hook to manage the state of the input value
 function App() {
+  // Setting the initial state of the input
+  const [input, setInput] = useState('');
 
-  const [input, setInput] = useState('0');
-  
-
-  const agregarInput = val =>{
+  // This function is used to add input values when buttons are clicked
+  const agregarInput = (val) => {
     setInput(input + val);
   };
 
+  // This function is used to calculate the result of the input expression
   const calcularResultado = () => {
-    if(input){
+    // Checking if there is any input value
+    if (input) {
       setInput(evaluate(input));
-    }else{
+    } else {
       setInput('error');
     }
-    
   };
+
+  // the JSX code that is rendered to the screen
   return (
     <div className='App'>
       <div className='freecodecamp-logo-contenedor'>
-        <img src={freeCodeCampLogo} alt='Logo de freecodecamp' className='freecodecamp-logo' />
+        <img
+          src={freeCodeCampLogo}
+          alt='Logo de freecodecamp'
+          className='freecodecamp-logo'
+        />
       </div>
       <div className='contenedor-calculadora'>
-        <Pantalla input={input}/>
+        <Pantalla input={input} />
         <div className='fila'>
           <Boton manejarClic={agregarInput}>1</Boton>
           <Boton manejarClic={agregarInput}>2</Boton>
           <Boton manejarClic={agregarInput}>3</Boton>
-          <Boton manejarClic={agregarInput}>/</Boton>          
+          <Boton manejarClic={agregarInput}>/</Boton>
         </div>
         <div className='fila'>
           <Boton manejarClic={agregarInput}>4</Boton>
@@ -56,7 +63,8 @@ function App() {
           <Boton manejarClic={agregarInput}>+</Boton>
         </div>
         <div className='fila'>
-        <BotonClear manejarClear={() => setInput('')}>Clear</BotonClear>
+          {/* The clear button calls the manejarClear function with an anonymous function to set the input state to an empty string */}
+          <BotonClear manejarClear={() => setInput('')}>Clear</BotonClear>
         </div>
       </div>
     </div>
